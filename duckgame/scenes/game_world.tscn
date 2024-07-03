@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://ymxaatk647s7"]
+
+[ext_resource type="PackedScene" uid="uid://b0u85kjkmlwfy" path="res://player_ship/ship.tscn" id="1_po0pb"]
+[ext_resource type="PackedScene" uid="uid://d2mcsaih45kqd" path="res://effects/space_background.tscn" id="2_o0x4w"]
+
+[node name="GameWorld" type="Node2D"]
+
+[node name="Ship" parent="." instance=ExtResource("1_po0pb")]
+position = Vector2(80, 216)
+
+[node name="ParallaxBackground" parent="." instance=ExtResource("2_o0x4w")]

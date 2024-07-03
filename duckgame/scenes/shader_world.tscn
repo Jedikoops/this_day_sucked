@@ -1,0 +1,51 @@
+[gd_scene load_steps=12 format=3 uid="uid://cl0n5u21dn4pt"]
+
+[ext_resource type="Texture2D" uid="uid://cw06e20wd3sfm" path="res://assets/icon.svg" id="1_0238h"]
+[ext_resource type="Shader" path="res://scripts/learn_h2_water.gdshader" id="1_cwynm"]
+[ext_resource type="Script" path="res://player_ship/Player.gd" id="2_2gbwd"]
+[ext_resource type="Texture2D" uid="uid://c212o1b41rimx" path="res://scripts/water_learn_noise.tres" id="2_qwwfx"]
+[ext_resource type="PackedScene" uid="uid://b0u85kjkmlwfy" path="res://player_ship/ship.tscn" id="4_fnlo0"]
+[ext_resource type="Texture2D" uid="uid://dxq1xy7d4u1uu" path="res://assets/duck.png" id="5_n83mm"]
+[ext_resource type="Shader" path="res://scripts/ripple.gdshader" id="7_ljfde"]
+[ext_resource type="Texture2D" uid="uid://ulbp8xswiess" path="res://assets/fuzzy-circle.png" id="8_7fduv"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bnplu"]
+shader = ExtResource("1_cwynm")
+shader_parameter/scroll = Vector2(0.05, 0.05)
+shader_parameter/distortion_strength = 0.2
+shader_parameter/noise = ExtResource("2_qwwfx")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ibndx"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_iw1pw"]
+shader = ExtResource("7_ljfde")
+
+[node name="ShaderWorld" type="Node2D"]
+
+[node name="SHader" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_bnplu")
+position = Vector2(375, 102)
+scale = Vector2(3.02344, 1.375)
+texture = ExtResource("1_0238h")
+
+[node name="Ship" parent="." instance=ExtResource("4_fnlo0")]
+position = Vector2(129, 38)
+scale = Vector2(7.52, 7.52)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+script = ExtResource("2_2gbwd")
+
+[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
+position = Vector2(-4, 31)
+texture = ExtResource("5_n83mm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+shape = SubResource("RectangleShape2D_ibndx")
+
+[node name="ripple" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_iw1pw")
+position = Vector2(276.5, 102)
+scale = Vector2(0.509375, 0.516667)
+texture = ExtResource("8_7fduv")

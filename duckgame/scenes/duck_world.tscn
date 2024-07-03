@@ -1,0 +1,58 @@
+[gd_scene load_steps=10 format=3 uid="uid://b63ie2cyt7nib"]
+
+[ext_resource type="Script" path="res://scenes/GameController.gd" id="1_e8w32"]
+[ext_resource type="Shader" path="res://scripts/water.gdshader" id="1_mvd5e"]
+[ext_resource type="Texture2D" uid="uid://dxq1xy7d4u1uu" path="res://assets/duck.png" id="1_p4cl2"]
+[ext_resource type="Texture2D" uid="uid://b3pr0qubawvdu" path="res://assets/water.png" id="2_185sr"]
+[ext_resource type="Texture2D" uid="uid://c212o1b41rimx" path="res://scripts/water_learn_noise.tres" id="2_q20s5"]
+[ext_resource type="Texture2D" uid="uid://bci2uf2khshtr" path="res://scripts/water_learn_noise_2.tres" id="3_5sjni"]
+[ext_resource type="Script" path="res://player_ship/Player.gd" id="5_h4imk"]
+[ext_resource type="Texture2D" uid="uid://cl1nocg1kji2w" path="res://assets/bread.png" id="8_nrhbh"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pblrq"]
+shader = ExtResource("1_mvd5e")
+shader_parameter/scroll1 = Vector2(0.07, 0.08)
+shader_parameter/scroll2 = Vector2(-0.02, -0.015)
+shader_parameter/scale = 4.371
+shader_parameter/wavelength = 20.0
+shader_parameter/dist_strength = 0.133
+shader_parameter/noise1 = ExtResource("2_q20s5")
+shader_parameter/noise2 = ExtResource("3_5sjni")
+
+[node name="DuckWorld" type="Node2D"]
+
+[node name="GameController" type="Node" parent="."]
+script = ExtResource("1_e8w32")
+
+[node name="water" type="Sprite2D" parent="."]
+texture_repeat = 3
+material = SubResource("ShaderMaterial_pblrq")
+texture = ExtResource("2_185sr")
+region_enabled = true
+region_rect = Rect2(2.08165e-12, 2.08165e-12, 2000, 2000)
+
+[node name="duck" type="CharacterBody2D" parent="."]
+script = ExtResource("5_h4imk")
+step = 200.0
+
+[node name="Sprite2D" type="Sprite2D" parent="duck"]
+scale = Vector2(0.141667, 0.141667)
+texture = ExtResource("1_p4cl2")
+flip_h = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="duck"]
+polygon = PackedVector2Array(1, 3, 2, 1, 6, -1, 6, -3, 4, -3, 3, -6, -2, -5, -3, -1, -7, -1, -5, 3, -2, 4)
+
+[node name="Camera2D" type="Camera2D" parent="duck"]
+position_smoothing_enabled = true
+
+[node name="Gun" type="Node2D" parent="duck"]
+
+[node name="Marker2D" type="Marker2D" parent="duck/Gun"]
+
+[node name="Sprite2D" type="Sprite2D" parent="duck/Gun"]
+
+[node name="Bread" type="Sprite2D" parent="."]
+position = Vector2(-92, 9)
+scale = Vector2(0.042, 0.042)
+texture = ExtResource("8_nrhbh")

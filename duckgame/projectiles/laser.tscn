@@ -1,0 +1,33 @@
+[gd_scene load_steps=6 format=3 uid="uid://bqq7k8r04i8w3"]
+
+[ext_resource type="Script" path="res://projectiles/laser.gd" id="1_sdd02"]
+[ext_resource type="Texture2D" uid="uid://uh7m5kh48ik" path="res://assets/laser_small.png" id="1_ypx3l"]
+[ext_resource type="Script" path="res://components/move_component.gd" id="2_nc25c"]
+[ext_resource type="Script" path="res://components/flash_component.gd" id="4_pb3y2"]
+[ext_resource type="Script" path="res://components/scale_component.gd" id="4_qdr4e"]
+
+[node name="Laser" type="Node2D"]
+script = ExtResource("1_sdd02")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_ypx3l")
+
+[node name="MoveComponent" type="Node" parent="." node_paths=PackedStringArray("actor")]
+script = ExtResource("2_nc25c")
+actor = NodePath("..")
+velocity = Vector2(2.08165e-12, -200)
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(0, 1)
+scale = Vector2(0.2, 0.4)
+
+[node name="FlashComponent" type="Node" parent="." node_paths=PackedStringArray("sprite")]
+script = ExtResource("4_pb3y2")
+sprite = NodePath("../Sprite2D")
+flash_duration = 0.1
+
+[node name="ScaleComponent" type="Node" parent="." node_paths=PackedStringArray("sprite")]
+script = ExtResource("4_qdr4e")
+sprite = NodePath("../Sprite2D")
+scale_amount = Vector2(2, 2)
+scale_duration = 1.0
